@@ -23,7 +23,7 @@ COPY . /var/www/html
 
 # ติดตั้ง Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # ตั้งค่าสิทธิ์โฟลเดอร์
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache

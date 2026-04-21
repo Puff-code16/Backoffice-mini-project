@@ -19,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        /**
+         * แก้ไขปัญหา Undefined constant "Yajra\Pdo\OCI_DEFAULT"
+         * โดยการเช็คว่าถ้ายังไม่มีการนิยามค่านี้ ให้กำหนดเป็น 0 (ค่ามาตรฐาน)
+         */
+        if (!defined('OCI_DEFAULT')) {
+            define('OCI_DEFAULT', 0);
+        }
     }
 }

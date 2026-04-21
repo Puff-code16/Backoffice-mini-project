@@ -15,14 +15,14 @@ class AuthController extends Controller
     /** หน้า Login */
     public function index(): View
     {
-        return view('auth.login');
+        return view('Auth.login');
     }
 
     public function register(): View
     {
         $departments = \App\Models\MpDepartment::all();
         $positions = \App\Models\MpPosition::all();
-        return view('auth.registration', compact('departments', 'positions'));
+        return view('Auth.registration', compact('departments', 'positions'));
     }
 
     /** กด Login */

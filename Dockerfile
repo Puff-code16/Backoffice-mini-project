@@ -29,7 +29,7 @@ ENV LD_LIBRARY_PATH /opt/oracle/instantclient_19_10
 RUN echo "instantclient,/opt/oracle/instantclient_19_10" | pecl install oci8-3.0.1 && \
     docker-php-ext-enable oci8
 
-# 4. กลับมาจัดการเรื่อง Apache และ Code
+# 4. จัดการเรื่อง Apache และ Code
 WORKDIR /var/www/html
 RUN a2enmod rewrite
 

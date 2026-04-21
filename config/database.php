@@ -9,6 +9,7 @@ return [
     | Default Database Connection Name
     |--------------------------------------------------------------------------
     */
+
     'default' => env('DB_CONNECTION', 'oracle'),
 
     /*
@@ -16,6 +17,7 @@ return [
     | Database Connections
     |--------------------------------------------------------------------------
     */
+
     'connections' => [
 
         'sqlite' => [
@@ -96,8 +98,6 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
         'oracle' => [
@@ -111,13 +111,16 @@ return [
             'charset'       => env('DB_CHARSET', 'AL32UTF8'),
             'prefix'        => env('DB_PREFIX', ''),
             'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
-
             'sessionVars'   => [
                 'NLS_TIME_FORMAT'          => 'HH24:MI:SS',
                 'NLS_DATE_FORMAT'          => 'YYYY-MM-DD HH24:MI:SS',
                 'NLS_TIMESTAMP_FORMAT'     => 'YYYY-MM-DD HH24:MI:SS',
                 'NLS_TIMESTAMP_TZ_FORMAT'  => 'YYYY-MM-DD HH24:MI:SS TZH:TZM',
                 'NLS_NUMERIC_CHARACTERS'   => '.,',
+            ],
+            // แก้ไข: เพิ่ม options เพื่อเลี่ยงปัญหา Undefined constant "OCI_DEFAULT"
+            'options' => [
+                PDO::ATTR_CASE => PDO::CASE_LOWER,
             ],
         ],
 
@@ -128,6 +131,7 @@ return [
     | Migration Repository Table
     |--------------------------------------------------------------------------
     */
+
     'migrations' => [
         'table' => 'migrations',
         'update_date_on_publish' => true,
@@ -138,6 +142,7 @@ return [
     | Redis Databases
     |--------------------------------------------------------------------------
     */
+
     'redis' => [
 
         'client' => env('REDIS_CLIENT', 'phpredis'),
@@ -153,7 +158,7 @@ return [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
+            'port' => env('DB_PORT_REDIS', '6379'),
             'database' => env('REDIS_DB', '0'),
             'max_retries' => env('REDIS_MAX_RETRIES', 3),
             'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
@@ -166,7 +171,7 @@ return [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
+            'port' => env('DB_PORT_REDIS', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
             'max_retries' => env('REDIS_MAX_RETRIES', 3),
             'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
@@ -175,4 +180,5 @@ return [
         ],
 
     ],
+
 ];

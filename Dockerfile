@@ -41,7 +41,4 @@ EXPOSE 10000
 
 # Start server
 # แก้ไข CMD ให้กระชับ และตรวจสอบว่าไฟล์ sqlite มีอยู่จริงก่อนรัน
-CMD php artisan config:clear && \
-    php artisan migrate --force && \
-    php artisan db:seed --force && \
-    php artisan serve --host=0.0.0.0 --port=10000
+CMD sh -c "mkdir -p database && touch database/database.sqlite && chmod -R 777 storage bootstrap/cache database && php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=10000"

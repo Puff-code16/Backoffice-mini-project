@@ -43,4 +43,4 @@ RUN touch /tmp/database.sqlite && \
 EXPOSE 10000
 
 # Start server
-CMD php artisan serve --host=0.0.0.0 --port=10000
+CMD sh -c "mkdir -p /tmp && touch /tmp/database.sqlite && chmod 777 /tmp/database.sqlite && php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=10000"

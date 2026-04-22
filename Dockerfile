@@ -1,6 +1,6 @@
 FROM php:8.2-cli
 
-# ติดตั้ง dependencies ให้ครบในคำสั่งเดียว
+# Install dependencies (เขียนให้ถูก syntax 100%)
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -12,35 +12,35 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     && docker-php-ext-install \
-    pdo \
-    pdo_sqlite \
-    mbstring \
-    bcmath \
-    gd
+        pdo \
+        pdo_sqlite \
+        mbstring \
+        bcmath \
+        gd
 
-# ติดตั้ง composer
+# Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# ตั้ง working directory
+# Working directory
 WORKDIR /app
 
-# copy project
+# Copy project
 COPY . .
 
-# install laravel dependencies
+# Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# permission
+# Fix permissions
 RUN chmod -R 777 storage bootstrap/cache
 
-# สร้าง sqlite + migrate + seed
+# Create SQLite + migrate + seed
 RUN touch /tmp/database.sqlite && \
     php artisan config:clear && \
     php artisan migrate --force && \
     php artisan db:seed --force
 
-# expose port
+# Expose port
 EXPOSE 10000
 
-# run app
+# Start server
 CMD php artisan serve --host=0.0.0.0 --port=10000

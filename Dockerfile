@@ -49,5 +49,4 @@ CMD sh -c "mkdir -p database && \
     php artisan migrate --force && \
     php artisan db:seed --force && \
     php artisan storage:link && \
-    php artisan serve --host=0.0.0.0 --port=10000 & \
-    tail -f storage/logs/laravel.log"
+    php artisan serve --host=0.0.0.0 --port=10000 2>&1 | tee -a storage/logs/laravel.log"
